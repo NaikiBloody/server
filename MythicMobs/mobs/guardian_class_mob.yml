@@ -1,0 +1,192 @@
+# ~Written by Khan~
+# VFX for Guardian Shield Bash
+vfx_guardian_protective_presence:
+  Type: block_display
+  DisplayOptions:
+    Block: AIR
+    Billboard: FIXED
+  Options:
+    Invincible: true
+    Collidable: false
+  Skills:
+  - model{usestatemachine=true;mid=guardian_protective_presence} @self ~onSpawn
+  - brightness{mid=guardian_protective_presence;b=15;s=15} @self ~onSpawn
+  - BodyRotation{playermode=true;stable=0;rdelay=0;rduration=0} @self ~onSpawn
+  - remove{delay=22} @self ~onSpawn
+
+vfx_guardian_shield_bash:
+  Type: block_display
+  DisplayOptions:
+    Block: AIR
+    Billboard: FIXED
+  Options:
+    Invincible: true
+    Collidable: false
+  Skills:
+  - model{usestatemachine=true;mid=guardian_shield_bash} @self ~onSpawn
+  - brightness{mid=guardian_shield_bash;b=15;s=15} @self ~onSpawn
+  - BodyRotation{playermode=true;stable=0;rdelay=0;rduration=0} @self ~onSpawn
+  - remove{delay=24} @self ~onSpawn
+
+vfx_guardian_aegis_fragment_idle:
+  Type: block_display
+  DisplayOptions:
+    Block: AIR
+    Billboard: FIXED
+  Options:
+    Invincible: true
+    Collidable: false
+  Skills:
+  - model{usestatemachine=true;mid=guardian_aegis_fragment;scale=1.5} @self ~onSpawn
+  - brightness{mid=guardian_aegis_fragment;b=15;s=15} @self ~onSpawn
+  - BodyRotation{playermode=true;stable=0;rdelay=0;rduration=0} @self ~onSpawn
+  - state{s=idle;p=1} @self ~onSpawn
+
+vfx_guardian_aegis_fragment_hit:
+  Type: block_display
+  DisplayOptions:
+    Block: AIR
+    Billboard: FIXED
+  Options:
+    Invincible: true
+    Collidable: false
+  Skills:
+  - model{usestatemachine=true;mid=guardian_aegis_fragment;scale=1.5} @self ~onSpawn
+  - brightness{mid=guardian_aegis_fragment;b=15;s=15} @self ~onSpawn
+  - BodyRotation{playermode=true;stable=0;rdelay=0;rduration=0} @self ~onSpawn
+  - state{s=hit;p=1} @self ~onSpawn
+  - remove{delay=20} @self ~onSpawn
+
+vfx_guardian_aegis_guard:
+  Type: ARMOR_STAND
+  Options:
+    Small: false
+    HasArms: true
+    Invisible: true
+    Invincible: true
+    Marker: true
+  Skills:
+  - model{usestatemachine=true;mid=guardian_aegis_guard;lockpitch=true} @self ~onSpawn
+  - brightness{b=15;s=15} @self ~onSpawn
+  - BodyRotation{playermode=true;stable=0;rdelay=0;rduration=0} @self ~onSpawn
+  - state{s=spawn;p=1} @self ~onSpawn
+  - state{s=idle;p=2;delay=20} @self ~onSpawn
+  - state{s=end;p=3;delay=120} @self ~onSpawn
+  - bindhitbox{m=guardian_aegis_guard;p=ob_hitboxlocation1;t=hitbox_guardian_aegis_guard;delay=1} @self ~onSpawn
+  - bindhitbox{m=guardian_aegis_guard;p=ob_hitboxlocation2;t=hitbox_guardian_aegis_guard;delay=1} @self ~onSpawn
+  - bindhitbox{m=guardian_aegis_guard;p=ob_hitboxlocation3;t=hitbox_guardian_aegis_guard;delay=1} @self ~onSpawn
+
+hitbox_guardian_aegis_guard:
+  Type: ZOMBIE
+  Health: 999
+  Damage: 10
+  Options:
+    Collidable: true
+    Silent: true
+    PreventSunburn: true
+    KnockbackResistance: 1
+    ThreatTable: true
+    PreventRandomEquipment: true
+  AIGoalSelectors:
+  - clear
+  AITargetSelectors:
+  - clear
+  Skills:
+  - model{usestatemachine=true;mid=hitbox_guardian_aegis_guard;lockpitch=true} @self ~onSpawn
+  - setAi{ai=false} @self ~onSpawn
+  - BodyRotation{playermode=false;stable=0;rdelay=0;rduration=0} @self ~onSpawn
+  - skill{s=guardian_aegis_guard_effect} ~onDamaged
+  - skill{s=guardian_aegis_guard_push} ~onTimer:10
+  - remove{delay=120} @self ~onSpawn
+
+vfx_guardian_aegis_guard_blockeffect:
+  Type: block_display
+  DisplayOptions:
+    Block: AIR
+    Billboard: FIXED
+  Options:
+    Invincible: true
+    Collidable: false
+  Skills:
+  - model{usestatemachine=true;mid=guardian_aegis_guard_blockeffect} @self ~onSpawn
+  - brightness{mid=guardian_aegis_guard_blockeffect;b=15;s=15} @self ~onSpawn
+  - BodyRotation{playermode=true;stable=0;rdelay=0;rduration=0} @self ~onSpawn
+  - remove{delay=11} @self ~onSpawn
+
+vfx_guardian_judgement_slam:
+  Type: block_display
+  DisplayOptions:
+    Block: AIR
+    Billboard: FIXED
+  Options:
+    Invincible: true
+    Collidable: false
+  Skills:
+  - model{usestatemachine=true;mid=guardian_judgement_slam} @self ~onSpawn
+  - brightness{mid=guardian_judgement_slam;b=15;s=15} @self ~onSpawn
+  - BodyRotation{playermode=true;stable=0;rdelay=0;rduration=0} @self ~onSpawn
+  - remove{delay=85} @self ~onSpawn
+
+vfx_guardian_aegis_ascend_explosion:
+  Type: block_display
+  DisplayOptions:
+    Block: AIR
+    Billboard: FIXED
+  Options:
+    Invincible: true
+    Collidable: false
+  Skills:
+  - model{usestatemachine=true;mid=guardian_aegis_ascend_explosion} @self ~onSpawn
+  - brightness{mid=guardian_aegis_ascend_explosion;b=15;s=15} @self ~onSpawn
+  - BodyRotation{playermode=true;stable=0;rdelay=0;rduration=0} @self ~onSpawn
+  - remove{delay=34} @self ~onSpawn
+
+vfx_guardian_aegis_ascend_zone:
+  Type: ARMOR_STAND
+  Options:
+    Small: false
+    HasArms: true
+    Invisible: true
+    Invincible: true
+    Marker: true
+  Skills:
+  - model{usestatemachine=true;mid=guardian_aegis_ascend_zone;scale=0.7} @self ~onSpawn
+  - brightness{mid=guardian_aegis_ascend_zone;b=15;s=15} @self ~onSpawn
+  - BodyRotation{playermode=true;stable=0;rdelay=0;rduration=0} @self ~onSpawn
+  - state{s=spawn;p=1} @self ~onSpawn
+  - state{s=idle;p=2;delay=40} @self ~onSpawn
+  - state{s=end;p=3;delay=240} @self ~onSpawn
+  - remove{delay=280} @self ~onSpawn
+  - bindhitbox{m=guardian_aegis_ascend_zone;p=ob_hitboxlocation1;t=hitbox_guardian_aegis_ascend;delay=1} @self ~onSpawn
+  - bindhitbox{m=guardian_aegis_ascend_zone;p=ob_hitboxlocation2;t=hitbox_guardian_aegis_ascend;delay=1} @self ~onSpawn
+  - bindhitbox{m=guardian_aegis_ascend_zone;p=ob_hitboxlocation3;t=hitbox_guardian_aegis_ascend;delay=1} @self ~onSpawn
+  - bindhitbox{m=guardian_aegis_ascend_zone;p=ob_hitboxlocation4;t=hitbox_guardian_aegis_ascend;delay=1} @self ~onSpawn
+  - bindhitbox{m=guardian_aegis_ascend_zone;p=ob_hitboxlocation5;t=hitbox_guardian_aegis_ascend;delay=1} @self ~onSpawn
+  - bindhitbox{m=guardian_aegis_ascend_zone;p=ob_hitboxlocation6;t=hitbox_guardian_aegis_ascend;delay=1} @self ~onSpawn
+  - bindhitbox{m=guardian_aegis_ascend_zone;p=ob_hitboxlocation7;t=hitbox_guardian_aegis_ascend;delay=1} @self ~onSpawn
+  - bindhitbox{m=guardian_aegis_ascend_zone;p=ob_hitboxlocation8;t=hitbox_guardian_aegis_ascend;delay=1} @self ~onSpawn
+  - bindhitbox{m=guardian_aegis_ascend_zone;p=ob_hitboxlocation9;t=hitbox_guardian_aegis_ascend;delay=1} @self ~onSpawn
+  - bindhitbox{m=guardian_aegis_ascend_zone;p=ob_hitboxlocation10;t=hitbox_guardian_aegis_ascend;delay=1} @self ~onSpawn
+
+hitbox_guardian_aegis_ascend:
+  Type: ZOMBIE
+  Health: 999
+  Damage: 10
+  Options:
+    Collidable: true
+    Silent: true
+    PreventSunburn: true
+    KnockbackResistance: 1
+    ThreatTable: true
+    PreventRandomEquipment: true
+    DigOutOfGround: true
+  AIGoalSelectors:
+  - clear
+  AITargetSelectors:
+  - clear
+  Skills:
+  - model{usestatemachine=true;mid=hitbox_guardian_aegis_ascend;lockpitch=true;scale=0.7} @self ~onSpawn
+  - setAi{ai=false} @self ~onSpawn
+  - BodyRotation{playermode=false;stable=0;rdelay=0;rduration=0} @self ~onSpawn
+  - skill{s=guardian_aegis_guard_effect} ~onDamaged
+  - remove{delay=280} @self ~onSpawn

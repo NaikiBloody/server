@@ -1,0 +1,213 @@
+# Protective Presence - Passive
+guardian_protective_presence:
+  Skills:
+  - skill{s=guardian_protective_presence_self} @self
+  - skill{s=guardian_protective_presence_players} @self
+
+guardian_protective_presence_self:
+  Skills:
+  - potion{type=RESISTANCE;duration=85;level=0;hasParticles=false} @self
+  - particles{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;amount=1;hS=0.3;vS=0.4;y=0.6;size=0.75;speed=0;repeat=35;repeati=2} @self
+
+guardian_protective_presence_players:
+  Conditions:
+  - playersinradius{a=>1;r=8}
+  Skills:
+  - sound{s=guardian.protective.presence} @self
+  - summon{type=vfx_guardian_protective_presence;onsurface=true;amount=1} @self
+  - potion{type=RESISTANCE;duration=85;level=0;hasParticles=false} @PIR{r=8}
+  - particles{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;amount=1;hS=0.3;vS=0.4;y=0.6;size=0.75;speed=0;repeat=35;repeati=2} @PIR{r=8}
+
+# Shield Bash - Left Click
+guardian_shield_bash:
+  Cooldown: 1
+  Conditions:
+  - crouching false
+  Skills:
+  - sound{s=guardian.shield.bash} @self
+  - summon{type=vfx_guardian_shield_bash;onsurface=true;amount=1} @forward{f=1.3;lockpitch=true}
+  - totem{md=2;c=1;oH=guardian_shield_bash_damage1;hnp=true;hp=true;hR=2.5;vR=2.5;i=1;drawhitbox=false} @forward{f=2;lockpitch=true}
+
+guardian_shield_bash_damage1:
+  Skills:
+  - damage{a=6;pkb=false;hnp=true;hp=true;delay=1}
+  - throw{velocity=15;velocityY=-5}
+  - potion{type=SLOW;duration=20;level=0;hasParticles=false}
+
+# Aegis Fragment - Right Click
+guardian_aegis_fragment:
+  Cooldown: 3
+  Conditions:
+  - crouching false
+  Skills:
+  - skill{s=guardian_aegis_fragment_throw}
+
+guardian_aegis_fragment_throw:
+  Skills:
+  - sound{s=guardian.aegis.fragment.cast} @self
+  - skill{s=guardian_aegis_fragment_initiate;origin=@SelfEyeLocation{yo=-0.5;fo=-1}} @forward{f=50;uel=true}
+
+guardian_aegis_fragment_initiate:
+  Skills:
+  - projectile{tickinterpolation=5;bulletType=MOB;mob=vfx_guardian_aegis_fragment_idle;onHit=guardian_aegis_fragment_hit_living;onHitBlock=guardian_aegis_fragment_hit_block;v=20;i=1;hR=0.6;vR=0.4;mr=50;hnp=true;hO=0;sE=true;sB=true;hs=false;hfs=0;sfo=0;syo=0;tyo=0;sso=0;fo=true;byo=0;drawhitbox=;ham=true}
+
+guardian_aegis_fragment_hit_living:
+  Skills:
+  - sound{s=guardian.aegis.fragment.hit} @origin
+  - skill{s=guardian_aegis_fragment_hit_mob}
+  - skill{s=guardian_aegis_fragment_hit_player}
+
+guardian_aegis_fragment_hit_block:
+  Skills:
+  - sound{s=guardian.aegis.fragment.hit;volume=0.5} @origin
+  - summon{type=vfx_guardian_aegis_fragment_hit;onsurface=true;amount=1} @origin
+
+guardian_aegis_fragment_hit_mob:
+  TargetConditions:
+  - isPlayer false
+  Skills:
+  - skill{s=guardian_aegis_fragment_hit_mob_execute} @EntitiesNearOrigin{r=2.5;limit=2;sort=NEAREST}
+
+guardian_aegis_fragment_hit_mob_execute:
+  TargetConditions:
+  - isPlayer false
+  Skills:
+  - damage{a=6;pkb=false;hnp=true;hp=true;delay=1}
+  - summon{type=vfx_guardian_aegis_fragment_hit;onsurface=true;amount=1}
+  - potion{type=SLOW;duration=40;level=2;hasParticles=false}
+  - throw{velocity=10;velocityY=1}
+
+guardian_aegis_fragment_hit_player:
+  TargetConditions:
+  - isPlayer true
+  Skills:
+  - potion{type=SPEED;duration=80;level=1;hasParticles=false} @PlayersNearOrigin{r=2.5;limit=1;sort=NEAREST}
+  - summon{type=vfx_guardian_aegis_fragment_hit;onsurface=true;amount=1} @PlayersNearOrigin{r=2.5;limit=1;sort=NEAREST}
+  - potion{type=RESISTANCE;duration=80;level=1;hasParticles=false} @PlayersNearOrigin{r=2.5;limit=1;sort=NEAREST}
+  - potion{type=RESISTANCE;duration=80;level=1;hasParticles=false} @self
+  - particles{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;amount=3;hS=0.3;vS=0.4;y=0.6;size=0.75;speed=0;repeat=40;repeati=2} @PlayersNearOrigin{r=2.5;limit=1;sort=NEAREST}
+  - particles{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;amount=3;hS=0.3;vS=0.4;y=0.6;size=0.75;speed=0;repeat=40;repeati=2} @self
+
+# Aegis Guard - Crouch + Crouch
+guardian_aegis_guard:
+  Conditions:
+  - hasaurastacks{auraName=guardian_aegis_guard_aura} castinstead guardian_aegis_guard_skill
+  Skills:
+  - Aura{auraName=guardian_aegis_guard_aura;interval=1;duration=5} @self
+
+guardian_aegis_guard_skill:
+  Cooldown: 10
+  Conditions:
+  - crouching false
+  Skills:
+  - sound{s=guardian.aegis.guard} @self
+  - orbital{bulletType=MOB;mob=vfx_guardian_aegis_guard;r=0;points=1;i=1;duration=160;oy=1.4} @self
+  - potion{type=SLOW;duration=100;level=1;hasParticles=false} @self
+  - potion{type=RESISTANCE;duration=80;level=2;hasParticles=false} @PlayersInRadius{r=4}
+  - potion{type=RESISTANCE;duration=80;level=2;hasParticles=false} @self
+  - particles{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;amount=5;hS=0.3;vS=0.4;y=0.6;size=0.75;speed=0;repeat=40;repeati=2} @PlayersInRadius{r=4}
+  - particles{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;amount=5;hS=0.3;vS=0.4;y=0.6;size=0.75;speed=0;repeat=40;repeati=2} @self
+
+guardian_aegis_guard_effect:
+  Skills:
+  - sound{s=guardian.aegis.guard.block} @origin
+  - summon{type=vfx_guardian_aegis_guard_blockeffect;onsurface=true;amount=1} @origin
+
+guardian_aegis_guard_push:
+  Skills:
+  - skill{s=guardian_aegis_guard_push_execute} @EntitiesNearOrigin{r=3}
+
+guardian_aegis_guard_push_execute:
+  TargetConditions:
+  - isPlayer false
+  Skills:
+  - throw{velocity=10;velocityY=1}
+
+# Judgement Slam - Sneak + Left
+guardian_judgement_slam:
+  Cooldown: 8
+  Conditions:
+  - crouching true
+  Skills:
+  - skill{s=guardian_judgement_slam_execute}
+
+guardian_judgement_slam_execute:
+  Skills:
+  - sound{s=guardian.judgement.jump} @self
+  - particles{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;amount=25;hS=0.4;vS=0.1;y=0.1;size=0.75;speed=0;repeat=10;repeati=1} @self
+  - lunge{velocity=2;velocityY=0.8} @forward{f=10;lockpitch=true}
+  - potion{type=SLOW_FALLING;duration=30;level=4;hasParticles=false} @self
+  - lunge{velocity=0.6;velocityY=-2;delay=19} @forward{f=1;lockpitch=true}
+  - skill{s=guardian_judgement_slam_impact;repeat=20;repeati=1;delay=10} @selflocation
+
+guardian_judgement_slam_impact:
+  Conditions:
+  - onground true
+  - hasaura{auraName=guardian_judgement_slam_impact_cancel} false
+  Skills:
+  - sound{s=guardian.judgement.slam} @self
+  - summon{type=vfx_guardian_judgement_slam;onsurface=true;amount=1} @selflocation
+  - Aura{auraName=guardian_judgement_slam_impact_cancel;duration=30} @self
+  - skill{s=guardian_judgement_slam_impact_damage} @EntitiesInRadius{r=6}
+  - potion{type=RESISTANCE;duration=80;level=3;hasParticles=false} @PlayersInRadius{r=6}
+  - particles{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;amount=6;hS=0.3;vS=0.4;y=0.6;size=0.75;speed=0;repeat=40;repeati=2} @PlayersInRadius{r=6}
+  - potion{type=RESISTANCE;duration=80;level=3;hasParticles=false} @self
+  - particles{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;amount=6;hS=0.3;vS=0.4;y=0.6;size=0.75;speed=0;repeat=40;repeati=2} @self
+
+guardian_judgement_slam_impact_damage:
+  TargetConditions:
+  - isPlayer false
+  Skills:
+  - damage{a=12;pkb=false;hnp=true;hp=true}
+  - throw{velocity=10;velocityY=3}
+  - potion{type=SLOW;duration=60;level=1;hasParticles=false}
+
+# Aegis Ascend - Sneak + Right
+guardian_aegis_ascend:
+  Cooldown: 20
+  Conditions:
+  - crouching true
+  - onground true
+  Skills:
+  - sound{s=universal.ultimate.sfx} @self
+  - delay 5
+  - skill{s=guardian_aegis_ascend_explosion} @self
+  - skill{s=guardian_aegis_ascend_zone;delay=5} @selflocation
+
+guardian_aegis_ascend_explosion:
+  Skills:
+  - sound{s=guardian.aegis.ascend.explosion} @selflocation
+  - summon{type=vfx_guardian_aegis_ascend_explosion;onsurface=true;amount=1} @selflocation
+  - skill{s=guardian_aegis_ascend_explosion_damage} @EIR{r=10}
+  - delay 3
+  - potion{type=NIGHT_VISION;duration=10;level=0;hasParticles=false} @EIR{r=10}
+  - potion{type=NIGHT_VISION;duration=10;level=0;hasParticles=false} @self
+
+guardian_aegis_ascend_explosion_damage:
+  TargetConditions:
+  - isPlayer false
+  Skills:
+  - damage{a=20;pkb=false;hnp=true;hp=true}
+  - throw{velocity=20;velocityY=1}
+
+guardian_aegis_ascend_zone:
+  Skills:
+  - sound{s=guardian.aegis.ascend.zone} @selflocation
+  - skill{s=guardian_aegis_ascend_zone_push;repeat=120;repeati=2} @EntitiesNearOrigin{r=6}
+  - summon{type=vfx_guardian_aegis_ascend_zone;onsurface=true;amount=1}
+  - skill{s=guardian_aegis_ascend_pulse_effect;repeat=12;repeati=20}
+
+guardian_aegis_ascend_zone_push:
+  TargetConditions:
+  - isPlayer false
+  Skills:
+  - throw{velocity=10;velocityY=1}
+
+guardian_aegis_ascend_pulse_effect:
+  Skills:
+  - particlering{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;radius=1;points=80;amount=4;hS=0;vS=0;y=0.1;size=0.75}
+  - particlering{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;radius=2;points=80;amount=2;hS=0;vS=0;y=0.1;size=0.75;delay=1}
+  - particlering{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;radius=3;points=80;amount=1;hS=0;vS=0;y=0.1;size=0.75;delay=2}
+  - particlering{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;radius=4;points=80;amount=1;hS=0;vS=0;y=0.1;size=0.75;delay=3}
+  - particlering{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;radius=5;points=80;amount=1;hS=0;vS=0;y=0.1;size=0.75;delay=4}
+  - particlering{p=dust_color_transition;color1=#ffd47d;color2=#fff7a5;radius=6;points=80;amount=1;hS=0;vS=0;y=0.1;size=0.75;delay=5}

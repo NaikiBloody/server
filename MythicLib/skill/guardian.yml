@@ -1,0 +1,38 @@
+GUARDIAN_PROTECTIVE_PRESENCE:
+    mythicmobs-skill-id: guardian_protective_presence
+    passive-type: TIMER
+
+GUARDIAN_SHIELD_BASH:
+    mythicmobs-skill-id: guardian_shield_bash
+    modifiers:
+    - duration
+    - damage
+    - skillcooldown
+
+GUARDIAN_AEGIS_FRAGMENT:
+    mythicmobs-skill-id: guardian_aegis_fragment
+    modifiers:
+    - duration
+    - damage
+    - skillcooldown
+
+GUARDIAN_AEGIS_GUARD:
+    mythicmobs-skill-id: guardian_aegis_guard
+    modifiers:
+    - duration
+    - damage
+    - skillcooldown
+
+GUARDIAN_JUDGEMENT_SLAM:
+    mythicmobs-skill-id: guardian_judgement_slam
+    modifiers:
+    - duration
+    - damage
+    - skillcooldown
+
+GUARDIAN_AEGIS_ASCEND:
+    mythicmobs-skill-id: guardian_aegis_ascend
+    modifiers:
+    - duration
+    - damage
+    - skillcooldown

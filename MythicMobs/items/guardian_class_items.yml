@@ -1,0 +1,19 @@
+# Written by Khanpachi #
+guardian_class_towershield:
+  Id: stone_sword
+  Display: "<gradient:#a3aeb3:#76777e:#605d68>Guardian Towershield"
+  Model: 4592
+  Lore:
+  - '<gradient:#a3aeb3:#76777e:#605d68>The Towershield of the Guardian Class'
+  Unbreakable: true
+  NBT:
+    Unbreakable: int/1
+  Hide:
+  - ATTRIBUTES
+  Skills:
+  - skill{s=guardian_protective_presence} @self ~onTimer:80
+  - skill{s=guardian_shield_bash} @self ~onSwing
+  - skill{s=guardian_aegis_fragment} @self ~onUse
+  - skill{s=guardian_aegis_guard} @self ~onCrouch
+  - skill{s=guardian_judgement_slam} @self ~onSwing
+  - skill{s=guardian_aegis_ascend} @self ~onUse
