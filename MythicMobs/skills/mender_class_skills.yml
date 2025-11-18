@@ -259,6 +259,7 @@ mender_lifeweavers_grace:
   - delay 3
   - summon{type=vfx_mender_lifeweavers_grace;onsurface=true;amount=1} @self
   - sound{s=mender.lifeweavers.grace} @selflocation
+  - onAttack{auraName=lifeweavers_grace_dmg_boost_self;damageMultiplier=2;duration=200} @self
   
 mender_lifeweavers_grace_ballskills:
   Skills:
@@ -289,6 +290,7 @@ mender_lifeweavers_grace_split:
   - potionclear{type=DARKNESS} 
   - potionclear{type=NAUSEA}
   - healpercent{m=0.20;delay=1}
+  - onAttack{auraName=lifeweavers_grace_dmg_boost_ally;damageMultiplier=2;duration=200}
   - summon{type=vfx_mender_cascadebolt_impact;onsurface=true;amount=1}
   - delay 2
   - skill{s=mender_lifeweavers_grace_projectile_split2} @EntitiesNearOrigin{r=8;limit=3;sort=NEAREST;conditions=[  - hasaura{aura=cascadebolt_untargetable_split1} false  - hasaura{aura=cascadebolt_untargetable} false  - isPlayer true ]}  
@@ -302,5 +304,6 @@ mender_lifeweavers_grace_split2:
   - isPlayer true
   Skills:
   - healpercent{m=0.05;delay=1}
+  - onAttack{auraName=lifeweavers_grace_dmg_boost_ally2;damageMultiplier=2;duration=200}
   - sound{s=mender.cascadebolt.split.impact} @origin
   - summon{type=vfx_mender_cascadebolt_split2_impact;onsurface=true;amount=1}
